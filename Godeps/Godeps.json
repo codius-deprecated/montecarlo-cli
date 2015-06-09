@@ -9,7 +9,7 @@
 		},
 		{
 			"ImportPath": "github.com/codius/montecarlo",
-			"Rev": "43bfc1673d0002557d4335f70ef36eb9401e3598"
+			"Rev": "017d8a2098a38541cb52553b707eabfcaec8b8a8"
 		},
 		{
 			"ImportPath": "github.com/emicklei/go-restful",
