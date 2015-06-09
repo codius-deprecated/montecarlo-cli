@@ -1,0 +1,12 @@
+dependencies:
+  pre:
+    - npm install -g istanbul-coveralls istanbul
+
+test:
+  post:
+    - istanbul-coveralls
+deployment:
+  prod:
+    branch: master
+    heroku:
+      appname: hidden-caverns-8427

@@ -1,0 +1,69 @@
+doctype html
+html(lang="en")
+  head
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css")
+    link(rel="stylesheet", href="main.css")
+    title Codius Pull Requests
+  body
+    div(class="row")
+      div(class="medium-6 small-12 columns")
+        h1 Pull requests
+        table
+          tr
+            th Repository
+            th Pull Request
+            th State
+            th Last Seen
+          tr
+            th(colspan=3) Open
+          each val in queue.open
+            tr
+              td
+                a(href="http://github.com/"+val.user+"/"+val.repo)= val.user+"/"+val.repo
+              td
+                a(href="https://github.com/"+val.user+"/"+val.repo+"/pull/"+val.number)= val.number + " - " + val.title
+              td= val.reviewState
+              td= val.lastSeen
+          tr
+            th(colspan=3) Merged
+          each val in queue.merged
+            tr
+              td
+                a(href="http://github.com/"+val.user+"/"+val.repo)= val.user+"/"+val.repo
+              td
+                a(href="https://github.com/"+val.user+"/"+val.repo+"/pull/"+val.number)= val.number + " - " + val.title
+              td= val.reviewState
+              td= val.lastSeen
+          tr
+            th(colspan=3) Closed
+          each val in queue.closed
+            tr
+              td
+                a(href="http://github.com/"+val.user+"/"+val.repo)= val.user+"/"+val.repo
+              td
+                a(href="https://github.com/"+val.user+"/"+val.repo+"/pull/"+val.number)= val.number + " - " + val.title
+              td= val.reviewState
+              td= val.lastSeen
+        p= "Last run was "+lastRun
+        p
+          if isRunning
+            span Crawler is currently running.
+          else
+            span Crawler is idle.
+      div(class="medium-6 small-12 columns")
+        h1 Build Status
+        table(class="build-status")
+          tr
+            th Commit
+            th Result
+          each val in buildStatus
+            - var cls = "failed"
+            if val.state == "success"
+              - var cls = "success"
+            tr(class=cls)
+              td
+                a(href=val.build_url)= val.slug+"/"+val.commit.commit.substr(0, 7)
+              td(rowspan=2)
+                a(href=val.build_url)= val.state
+            tr
+              td(colspan=2)= val.commit.subject
